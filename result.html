@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textify - Result</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="script.js" defer></script>
+  <script>
+    // Function to handle copy action
+    function handleCopy() {
+      const resultText = document.getElementById('resultText').textContent;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        // Use Clipboard API if available
+        navigator.clipboard.writeText(resultText).then(() => {
+          showNotification('Text copied to clipboard!', 'success'); // Show success notification
+        }).catch((err) => {
+          console.error('Failed to copy text: ', err);
+          showNotification('Failed to copy text. Please manually copy the text.', 'error'); // Show error notification
+        });
+      } else {
+        // Fallback: Use a hidden textarea to copy the text
+        const tempTextarea = document.createElement('textarea');
+        tempTextarea.value = resultText;
+        document.body.appendChild(tempTextarea);
+        tempTextarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextarea);
+        showNotification('Text copied to clipboard!', 'success'); // Show success notification
+      }
+    }
+
+    // Function to show a temporary notification with an icon
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+
+      // Add icon based on type
+      const icon = document.createElement('i');
+      icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+      notification.appendChild(icon);
+
+      // Add message
+      const messageText = document.createElement('span');
+      messageText.textContent = message;
+      notification.appendChild(messageText);
+
+      document.body.appendChild(notification);
+
+      // Remove the notification after 2 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    }
+
+    // Add global keyboard shortcut for Cmd/Ctrl + C to copy the result
+    document.addEventListener('keydown', function (event) {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+        event.preventDefault(); // Prevent default copy behavior
+        handleCopy();
+      }
+
+      // Backspace to go back to the index page
+      if (event.key === 'Backspace') {
+        event.preventDefault(); // Prevent default back behavior
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Transformed Text</h2><br> 
+    <p id="resultText"></p>
+    <br>
+    <div class="button-group">
+      <button type="button" onclick="handleCopy()">Copy</button>
+      <span class="note">or Ctrl+C</span>
+    </div>
+    <div class="button-group">
+      <a href="index.html">Transform Another Text</a>
+      <span class="note">or Backspace</span>
+    </div>
+  </div>
+</body>
+</html>
