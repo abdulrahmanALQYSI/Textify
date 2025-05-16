@@ -1,19 +1,17 @@
 body {
   font-family: 'Roboto', sans-serif;
-   color: white;
+  color: white;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #000000;
-opacity: 0.92;
-background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #000000 50px ), repeating-linear-gradient( #00cccc44, #00cccc0d );
-min-height: 100vh;
-  flex-direction: column;  
+  opacity: 0.92;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #000000 50px), repeating-linear-gradient(#00cccc44, #00cccc0d);
+  min-height: 100vh;
+  flex-direction: column;
 }
-
-
 
 .container {
   background-color: #000000;
@@ -149,20 +147,19 @@ a:hover {
 
 @keyframes fadeInOut {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   10% {
-      opacity: 1;
+    opacity: 1;
   }
   90% {
-      opacity: 1;
+    opacity: 1;
   }
   100% {
-      opacity: 0;
+    opacity: 0;
   }
 }
 
-/* Custom radio button styles */
 .options input[type="radio"] {
   display: none;
 }
@@ -198,9 +195,7 @@ a:hover {
   border-color: #00cccc;
   box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
 }
- 
 
-/* footer-container styles */
 .footer-container {
   text-align: center;
   margin-top: 45px;
@@ -209,4 +204,28 @@ a:hover {
   font-size: 20px;
 }
 
- 
+/* Voice Recognition Button Styles */
+#voiceRecognitionButton {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #00cccc;
+  border: 1px solid #00cccc;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 255, 255, 0.3);
+}
+
+#voiceRecognitionButton:hover {
+  background-color: #00cccc;
+  color: black;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.6);
+}
+
+#voiceRecognitionButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
