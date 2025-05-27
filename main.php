@@ -147,6 +147,7 @@
     </div>
     <div class="container" style="max-width: 300px; background: rgba(255,255,255,0.05); overflow-y: auto;">
       <h3>Your Submitted Words</h3>
+      <input type="text" id="searchInput" placeholder="Search your words..." style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white;">
       <ul style="list-style-type: none; padding: 0; text-align: left;">
         <?php foreach ($words as $word): ?>
           <li style="padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center;">
@@ -170,6 +171,16 @@
     <p style="font-size: 15px;color: white;">Amer Jehad ghaith</p>
 
   </div>
+  <script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const filter = this.value.toLowerCase();
+      const items = document.querySelectorAll('.container ul li');
+      items.forEach(item => {
+        const word = item.querySelector('span').textContent.toLowerCase();
+        item.style.display = word.includes(filter) ? 'flex' : 'none';
+      });
+    });
+  </script>
 </body>
 
 </html>
