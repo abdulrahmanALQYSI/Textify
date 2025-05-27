@@ -110,12 +110,13 @@
   <br><br>
   <div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
     <div class="container">
-      <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2>
+
       <?php if (isset($_SESSION['username'])): ?>
         <p style="margin-top: -10px; font-size: 32px; font-weight: bold; text-align: left; color: rgba(255, 255, 255, 0.95);">
           Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
           <button onclick="document.getElementById('editUsernameModal').style.display='block'" style="background: none; border: none; color: #fff; margin-left: 10px; cursor: pointer;">✏️</button>
         </p>
+        <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2>
       <?php endif; ?>
       <br>
       <form action="save_word.php" method="GET">
