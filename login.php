@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 // Set content type to prevent any output issues
 header('Content-Type: text/plain');
 
@@ -74,6 +76,8 @@ if ($user_password !== $user['password']) {
 
 // Login successful
 echo 'success';
+
+$_SESSION['email'] = $email;
 
 // Close database connection
 mysqli_close($conn);

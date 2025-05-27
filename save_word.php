@@ -1,10 +1,10 @@
 <?php
-// session_start();
+session_start();
 
-// if (!isset($_SESSION['email'])) {
-//     header("Location: index.html");
-//     exit();
-// }
+if (!isset($_SESSION['email'])) {
+    header("Location: index.html");
+    exit();
+}
 
 if (isset($_GET['inputText']) && !empty(trim($_GET['inputText']))) {
     $email = $_SESSION['email'];
