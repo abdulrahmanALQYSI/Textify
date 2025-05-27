@@ -114,8 +114,7 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-
-      .login-link {
+    .login-link {
       margin-top: 20px;
       text-align: center;
     }
@@ -132,7 +131,6 @@
       text-decoration: underline;
     }
 
-
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
@@ -140,6 +138,12 @@
 
     button:active {
       transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .forgot-password {
@@ -197,6 +201,13 @@
       display: none;
     }
 
+    .loading {
+      display: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
     @media (max-width: 768px) {
       .container {
         padding: 30px 20px;
@@ -228,6 +239,8 @@
       const password = document.getElementById('password').value.trim();
       const errorMsg = document.getElementById('errorMessage');
       const successMsg = document.getElementById('successMessage');
+      const submitBtn = document.getElementById('submitBtn');
+      const loading = document.getElementById('loading');
       
       // Hide previous messages
       errorMsg.style.display = 'none';
@@ -244,19 +257,46 @@
         return;
       }
       
-      if (password.length < 6) {
-        showError('Password must be at least 6 characters long.');
-        return;
-      }
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in...';
+      loading.style.display = 'block';
       
-      // Simulate login process
-      showSuccess('Login successful! Redirecting...');
+      // Create form data
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('password', password);
       
-      // In a real application, you would make an API call here
-      setTimeout(() => {
-        // Redirect to main page or dashboard
-        window.location.href = 'index.html'; // or wherever you want to redirect
-      }, 1500);
+      // Send request to PHP backend
+      fetch('login.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+        loading.style.display = 'none';
+        
+        if (data.trim() === 'success') {
+          showSuccess('Login successful! Redirecting...');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        } else {
+          showError(data);
+        }
+      })
+      .catch(error => {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+        loading.style.display = 'none';
+        
+        console.error('Error:', error);
+        showError('Connection error. Please try again.');
+      });
     }
     
     function isValidEmail(email) {
@@ -335,7 +375,6 @@
    
   <div class="logo">
    <img src="logo.png" alt="" width="320px"  >
-   
   </div>
  
   <div class="container">
@@ -356,24 +395,22 @@
       </div>
       
       <div class="button-group">
-        <button type="submit">Login</button>
+        <button type="submit" id="submitBtn">Login</button>
         <span class="note">or Enter</span>
       </div>
+      
+      <div id="loading" class="loading">Processing your login...</div>
     </form>
     
-
     <div class="login-link">
       <a href="register.html">You don't have an account yet? Register here</a>
     </div>
    
-    
     <div style="margin-top: 20px; font-size: 14px; color: rgba(255, 255, 255, 0.7);">
       <strong>Keyboard shortcuts:</strong><br>
       Ctrl+L: Focus email • Ctrl+P: Focus password<br>
       Enter: Next field/Login • Esc: Clear form
     </div>
   </div>
-
-   
 </body>
 </html>
