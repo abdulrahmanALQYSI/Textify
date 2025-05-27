@@ -1,10 +1,10 @@
 <?php
-session_start();
+// session_start();
 
-if (!isset($_SESSION['email'])) {
-    header("Location: index.html");
-    exit();
-}
+// if (!isset($_SESSION['email'])) {
+//     header("Location: index.html");
+//     exit();
+// }
 
 if (isset($_GET['inputText']) && !empty(trim($_GET['inputText']))) {
     $email = $_SESSION['email'];
@@ -12,6 +12,8 @@ if (isset($_GET['inputText']) && !empty(trim($_GET['inputText']))) {
 
     // Connect to DB
     $conn = new mysqli("localhost", "textify", "textify123", "textify1");
+
+    echo "connecting to DB...<br>";
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -22,6 +24,8 @@ if (isset($_GET['inputText']) && !empty(trim($_GET['inputText']))) {
     $stmt->execute();
     $stmt->close();
     $conn->close();
+
+    echo "Done";
 
     // Preserve the original GET parameters and redirect to result.html
     $query = http_build_query($_GET);
