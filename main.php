@@ -189,7 +189,7 @@
     });
   </script>
 
-  <div id="editUsernameModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div id="editUsernameModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000;">
     <div style="background: #000; color: white; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center;">
       <h3>Edit Your Name</h3>
       <form method="POST" action="update_username.php">
