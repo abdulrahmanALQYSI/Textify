@@ -8,9 +8,9 @@ ini_set('display_errors', 1);
 
 // Database configuration
 $host = 'localhost';
-$dbname = 'textify';
 $username = 'root'; // Default MySQL username
 $password = 'textify123';
+$dbname = 'textify';
 
 // Check if request is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -34,54 +34,46 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-try {
-    // Create database connection
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+// Create database connection using mysqli
+$conn = mysqli_connect($host, $username, $password, $dbname);
 
-    // Set PDO error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Prepare SQL statement to find user by email
-    $stmt = $pdo->prepare("SELECT id, email, password, name FROM users WHERE email = :email LIMIT 1");
-    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    $stmt->execute();
-
-    // Check if user exists
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        echo 'Email address not found';
-        exit;
-    }
-
-    // Verify password (plain text comparison)
-    if ($user_password !== $user['password']) {
-        echo 'Incorrect password';
-        exit;
-    }
-
-    // Login successful
-    echo 'success';
-} catch (PDOException $e) {
-    // Handle database errors
-    if ($e->getCode() == 1049) { // Database doesn't exist
-        echo 'Database connection error: Database not found';
-    } elseif ($e->getCode() == 1045) { // Access denied
-        echo 'Database connection error: Access denied';
-    } elseif ($e->getCode() == 2002) { // Can't connect to server
-        echo 'Database connection error: Cannot connect to server';
-    } elseif ($e->getCode() == 1146) { // Table doesn't exist
-        echo 'Database error: Users table not found';
-    } else {
-        // Log the actual error for debugging (don't show to user)
-        error_log("Login error: " . $e->getMessage());
-        echo 'Database connection error. Please try again later';
-    }
-} catch (Exception $e) {
-    // Handle other errors
-    error_log("Login error: " . $e->getMessage());
-    echo 'An unexpected error occurred. Please try again later';
+// Check connection
+if (!$conn) {
+    echo 'Database connection error: ' . mysqli_connect_error();
+    exit;
 }
 
+// Prepare SQL statement to find user by email
+$email = mysqli_real_escape_string($conn, $email);
+$sql = "SELECT id, email, password, name FROM users WHERE email = '$email' LIMIT 1";
+$result = mysqli_query($conn, $sql);
+
+// Check if query was successful
+if (!$result) {
+    echo 'Database query error: ' . mysqli_error($conn);
+    mysqli_close($conn);
+    exit;
+}
+
+// Check if user exists
+if (mysqli_num_rows($result) == 0) {
+    echo 'Email address not found';
+    mysqli_close($conn);
+    exit;
+}
+
+// Get user data
+$user = mysqli_fetch_assoc($result);
+
+// Verify password (plain text comparison)
+if ($user_password !== $user['password']) {
+    echo 'Incorrect password';
+    mysqli_close($conn);
+    exit;
+}
+
+// Login successful
+echo 'success';
+
 // Close database connection
-$pdo = null;
+mysqli_close($conn);
