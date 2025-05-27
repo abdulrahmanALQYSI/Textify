@@ -35,7 +35,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("sss", $username, $email, $password);
 
 if ($stmt->execute()) {
-    header("Location: main.html");
+    header("Location: index.html");
     exit();
 } else {
     echo "Error: " . $stmt->error;

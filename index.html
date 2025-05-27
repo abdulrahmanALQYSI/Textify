@@ -3,133 +3,414 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Textify</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Textify - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #069c9c 0%, #764ba2 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .logo {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .logo-text {
+      font-size: 48px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #fff, #f0f0f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 30px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-left: 5px;
+    }
+
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    input[type="email"]:focus, input[type="password"]:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .button-group {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .login-link a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .login-link a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .forgot-password {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .forgot-password a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .forgot-password a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .footer-container {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .footer-container p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .error-message {
+      background: rgba(255, 0, 0, 0.2);
+      border: 1px solid rgba(255, 0, 0, 0.5);
+      color: #ffcccb;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .success-message {
+      background: rgba(0, 255, 0, 0.2);
+      border: 1px solid rgba(0, 255, 0, 0.5);
+      color: #ccffcc;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .loading {
+      display: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+      
+      .logo-text {
+        font-size: 36px;
+      }
+      
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
 
   <meta name="author" content="Abdulrahman Alqaysi">
-  <meta name="contributor" content="Amer Jehad">
- 
+  <meta name="contributor" content="Mohamoud Alzoul">
+  <meta name="contributor" content="Ahmad Alsalem">
+  <meta name="contributor" content="Saeed Muneer">
   
- 
-  <meta name="description" content="This website is designed to help you effortlessly transform your text to suit your needs. For added convenience, we've created a mouseless experience, allowing you to navigate and control the website entirely using keyboard shortcuts.">
+  <meta name="description" content="Login to Textify - Transform your text with our mouseless experience using keyboard shortcuts.">
   
   <script>
-    // Function to handle paste action
-    function handlePaste() {
-      if (navigator.clipboard && navigator.clipboard.readText) {
-        // Use Clipboard API if available
-        navigator.clipboard.readText().then((text) => {
-          document.getElementById('inputText').value = text;
-        }).catch((err) => {
-          console.error('Failed to read clipboard text: ', err);
-          alert('Failed to paste. Please manually paste your text.');
-        });
-      } else {
-        // Fallback: Focus on the textarea and allow manual paste
-        alert('Clipboard API not supported. Please manually paste your text.');
-        document.getElementById('inputText').focus();
+    // Function to handle form submission
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('errorMessage');
+      const successMsg = document.getElementById('successMessage');
+      const submitBtn = document.getElementById('submitBtn');
+      const loading = document.getElementById('loading');
+      
+      // Hide previous messages
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+      
+      // Basic validation
+      if (!email || !password) {
+        showError('Please fill in all fields.');
+        return;
+      }
+      
+      if (!isValidEmail(email)) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logging in...';
+      loading.style.display = 'block';
+      
+      // Create form data
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('password', password);
+      
+      // Send request to PHP backend
+      fetch('login.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+        loading.style.display = 'none';
+        
+        if (data.trim() === 'success') {
+          showSuccess('Login successful! Redirecting...');
+          setTimeout(() => {
+            window.location.href = 'main.html';
+          }, 1500);
+        } else {
+          showError(data);
+        }
+      })
+      .catch(error => {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
+        loading.style.display = 'none';
+        
+        console.error('Error:', error);
+        showError('Connection error. Please try again.');
+      });
+    }
+    
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    function showError(message) {
+      const errorMsg = document.getElementById('errorMessage');
+      errorMsg.textContent = message;
+      errorMsg.style.display = 'block';
+    }
+    
+    function showSuccess(message) {
+      const successMsg = document.getElementById('successMessage');
+      successMsg.textContent = message;
+      successMsg.style.display = 'block';
+    }
+    
+    // Function to focus on next input field
+    function focusNext(currentId) {
+      if (currentId === 'email') {
+        document.getElementById('password').focus();
       }
     }
-
-    // Function to select transformation option
-    function selectOption(optionNumber) {
-      const options = document.getElementsByName('transformOption');
-      if (optionNumber >= 1 && optionNumber <= 3) {
-        options[optionNumber - 1].checked = true; // Select the corresponding option
-      }
-    }
-
+    
     // Add global keyboard shortcuts
     document.addEventListener('keydown', function (event) {
-      // Cmd/Ctrl + V to paste into the textarea
-      if ((event.ctrlKey || event.metaKey) && event.key === 'v') {
-        event.preventDefault(); // Prevent default paste behavior
-        handlePaste();
-      }
-
       // Enter to submit the form
       if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent form submission if inside a textarea
-        document.querySelector('form').submit();
+        const activeElement = document.activeElement;
+        if (activeElement.tagName === 'INPUT') {
+          if (activeElement.id === 'email') {
+            event.preventDefault();
+            focusNext('email');
+          } else if (activeElement.id === 'password') {
+            event.preventDefault();
+            handleLogin(event);
+          }
+        }
       }
-
-      // Ctrl + 1, Ctrl + 2, Ctrl + 3 to select transformation options
-      if ((event.ctrlKey || event.metaKey) && event.key === '1') {
+      
+      // Ctrl/Cmd + L to focus on email field
+      if ((event.ctrlKey || event.metaKey) && event.key === 'l') {
         event.preventDefault();
-        selectOption(1); // Select UPPERCASE
+        document.getElementById('email').focus();
       }
-      if ((event.ctrlKey || event.metaKey) && event.key === '2') {
+      
+      // Ctrl/Cmd + P to focus on password field
+      if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
         event.preventDefault();
-        selectOption(2); // Select lowercase
+        document.getElementById('password').focus();
       }
-      if ((event.ctrlKey || event.metaKey) && event.key === '3') {
-        event.preventDefault();
-        selectOption(3); // Select Capitalize Each Word
+      
+      // Escape to clear form
+      if (event.key === 'Escape') {
+        document.getElementById('loginForm').reset();
+        document.getElementById('email').focus();
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'none';
       }
     });
 
-    // Focus on the textarea when the page loads
+    // Focus on the email field when the page loads
     window.addEventListener('load', function () {
-      const inputText = document.getElementById('inputText');
-      inputText.focus(); // Focus on the textarea
+      document.getElementById('email').focus();
     });
 
-    // Focus on the textarea when the page is shown (including when navigating back)
+    // Focus on the email field when the page is shown (including when navigating back)
     window.addEventListener('pageshow', function () {
-      const inputText = document.getElementById('inputText');
-      inputText.focus(); // Focus on the textarea
+      document.getElementById('email').focus();
     });
   </script>
 </head>
 <body>
    
-  <img src="logo.png" alt="" width="320px"  >
-   
- 
-  <br><br> 
-  <div class="container">
-    <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2><br>
-    <form action="result.html" method="GET">
-      <textarea id="inputText" name="inputText" rows="10" cols="50" placeholder="Enter your text here..." autofocus></textarea>
-      <div class="button-group">
-        <button type="button" onclick="handlePaste()">Paste</button>
-        <span class="note">or Ctrl+V</span>
-      </div>
-      <div class="options">
-        <div class="radio-option">
-          <input type="radio" id="uppercase" name="transformOption" value="uppercase" checked>
-          <label for="uppercase">UPPERCASE <span>(Ctrl+1)</span></label>
-        </div>
-        <div class="radio-option">
-          <input type="radio" id="lowercase" name="transformOption" value="lowercase">
-          <label for="lowercase">lowercase <span>(Ctrl+2)</span></label>
-        </div>
-        <div class="radio-option">
-          <input type="radio" id="capitalize" name="transformOption" value="capitalize">
-          <label for="capitalize">Capitalize Each Word <span>(Ctrl+3)</span></label>
-        </div>
-      </div>
-      <br><br>
-      <div class="button-group">
-        <button type="submit">Transform Text</button>
-        <span class="note">or Enter</span>
-      </div>
-
-
-      <div class="button-group">
-       <a href="register.html">login</a>
-      </div>
-    </form>
+  <div class="logo">
+   <img src="logo.png" alt="" width="320px"  >
   </div>
  
-
-
-  <div class="footer-container">
+  <div class="container">
+    <h2>Welcome back to the Word Wizard! Enter your credentials to access the magic</h2>
     
-    <p  >Textify has been Developed by</p> 
-    <p style="font-size: 15px;color: white;">Abdulrahman Alqaysi</p> 
-    <p style="font-size: 15px;color: white;">Amer Jehad ghaith</p> 
+    <div id="errorMessage" class="error-message"></div>
+    <div id="successMessage" class="success-message"></div>
     
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">Email Address <span class="note">(Ctrl+L)</span></label>
+        <input type="email" id="email" name="email" placeholder="Enter your email..." required autofocus>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password <span class="note">(Ctrl+P)</span></label>
+        <input type="password" id="password" name="password" placeholder="Enter your password..." required>
+      </div>
+      
+      <div class="button-group">
+        <button type="submit" id="submitBtn">Login</button>
+        <span class="note">or Enter</span>
+      </div>
+      
+      <div id="loading" class="loading">Processing your login...</div>
+    </form>
+    
+    <div class="login-link">
+      <a href="register.html">You don't have an account yet? Register here</a>
+    </div>
+   
+    <div style="margin-top: 20px; font-size: 14px; color: rgba(255, 255, 255, 0.7);">
+      <strong>Keyboard shortcuts:</strong><br>
+      Ctrl+L: Focus email • Ctrl+P: Focus password<br>
+      Enter: Next field/Login • Esc: Clear form
+    </div>
   </div>
 </body>
 </html>
