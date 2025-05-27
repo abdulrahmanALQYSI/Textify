@@ -112,7 +112,7 @@
     <div class="container">
       <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2>
       <?php if (isset($_SESSION['username'])): ?>
-        <p style="margin-top: -20px; font-size: 18px; color: rgba(255, 255, 255, 0.9);">
+        <p style="margin-top: -10px; font-size: 22px; font-weight: bold; text-align: left; color: rgba(255, 255, 255, 0.95);">
           Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
         </p>
       <?php endif; ?>
