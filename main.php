@@ -149,7 +149,13 @@
       <h3>Your Submitted Words</h3>
       <ul style="list-style-type: none; padding: 0; text-align: left;">
         <?php foreach ($words as $word): ?>
-          <li style="padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.2);"><?php echo $word; ?></li>
+          <li style="padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center;">
+            <span><?php echo $word; ?></span>
+            <form method="POST" action="delete_word.php" style="margin: 0;">
+              <input type="hidden" name="word" value="<?php echo htmlspecialchars($word); ?>">
+              <button type="submit" style="margin-left: 10px; background: red; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Delete</button>
+            </form>
+          </li>
         <?php endforeach; ?>
       </ul>
     </div>
