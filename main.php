@@ -189,8 +189,8 @@
     });
   </script>
 
-  <div id="editUsernameModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
-    <div style="background: white; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center;">
+  <div id="editUsernameModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+    <div style="background: #000; color: white; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center;">
       <h3>Edit Your Name</h3>
       <form method="POST" action="update_username.php">
         <input type="text" name="new_username" placeholder="Enter new name" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
