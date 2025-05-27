@@ -110,7 +110,13 @@
   <br><br>
   <div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
     <div class="container">
-      <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2><br>
+      <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2>
+      <?php if (isset($_SESSION['username'])): ?>
+        <p style="margin-top: -20px; font-size: 18px; color: rgba(255, 255, 255, 0.9);">
+          Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+        </p>
+      <?php endif; ?>
+      <br>
       <form action="save_word.php" method="GET">
         <textarea id="inputText" name="inputText" rows="10" cols="50" placeholder="Enter your text here..." autofocus></textarea>
         <div class="button-group">
