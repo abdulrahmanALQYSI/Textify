@@ -282,6 +282,8 @@
         showError('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
         return;
       }
+
+      
       
       // Simulate registration process
       showSuccess('Registration successful! Redirecting to login...');
@@ -448,10 +450,10 @@
     <div id="errorMessage" class="error-message"></div>
     <div id="successMessage" class="success-message"></div>
     
-    <form id="registerForm" onsubmit="handleRegister(event)">
+    <form id="registerForm" onsubmit="handleRegister(event)" action="register.php" method="POST">
       <div class="form-group">
-        <label for="name">Full Name <span class="note">(Ctrl+N)</span></label>
-        <input type="text" id="name" name="name" placeholder="Enter your full name..." required autofocus>
+        <label for="username">Full Name <span class="note">(Ctrl+N)</span></label>
+        <input type="text" id="username" name="username" placeholder="Enter your full name..." required autofocus>
       </div>
       
       <div class="form-group">
