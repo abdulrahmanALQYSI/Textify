@@ -8,9 +8,9 @@ ini_set('display_errors', 1);
 
 // Database configuration
 $host = 'localhost';
-$username = 'root'; // Default MySQL username
+$username = 'textify'; // Default MySQL username
 $password = 'textify123';
-$dbname = 'textify';
+$dbname = 'textify1';
 
 // Check if request is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -45,7 +45,7 @@ if (!$conn) {
 
 // Prepare SQL statement to find user by email
 $email = mysqli_real_escape_string($conn, $email);
-$sql = "SELECT id, email, password, name FROM users WHERE email = '$email' LIMIT 1";
+$sql = "SELECT email, password FROM users WHERE email = '$email' LIMIT 1";
 $result = mysqli_query($conn, $sql);
 
 // Check if query was successful
