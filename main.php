@@ -112,8 +112,9 @@
     <div class="container">
       <h2>This is the Word Wizard, harness its magic to transform your words into pure brilliance</h2>
       <?php if (isset($_SESSION['username'])): ?>
-        <p style="margin-top: -15px; font-size: 32px; font-weight: bold; text-align: left; color: rgba(255, 255, 255, 0.95);">
+        <p style="margin-top: -10px; font-size: 32px; font-weight: bold; text-align: left; color: rgba(255, 255, 255, 0.95);">
           Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+          <button onclick="document.getElementById('editUsernameModal').style.display='block'" style="background: none; border: none; color: #fff; margin-left: 10px; cursor: pointer;">✏️</button>
         </p>
       <?php endif; ?>
       <br>
@@ -187,6 +188,17 @@
       });
     });
   </script>
+
+  <div id="editUsernameModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center;">
+      <h3>Edit Your Name</h3>
+      <form method="POST" action="update_username.php">
+        <input type="text" name="new_username" placeholder="Enter new name" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <button type="submit" style="padding: 8px 16px;">Save</button>
+        <button type="button" onclick="document.getElementById('editUsernameModal').style.display='none'" style="padding: 8px 16px; margin-left: 10px;">Cancel</button>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>
