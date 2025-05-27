@@ -47,7 +47,7 @@ if (!$conn) {
 
 // Prepare SQL statement to find user by email
 $email = mysqli_real_escape_string($conn, $email);
-$sql = "SELECT email, password FROM users WHERE email = '$email' LIMIT 1";
+$sql = "SELECT email, username, password FROM users WHERE email = '$email' LIMIT 1";
 $result = mysqli_query($conn, $sql);
 
 // Check if query was successful
@@ -78,6 +78,7 @@ if ($user_password !== $user['password']) {
 echo 'success';
 
 $_SESSION['email'] = $email;
+$_SESSION['username'] = $user['username'];
 
 // Close database connection
 mysqli_close($conn);
