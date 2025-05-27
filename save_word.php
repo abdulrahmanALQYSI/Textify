@@ -16,9 +16,10 @@ if (isset($_GET['inputText']) && !empty(trim($_GET['inputText']))) {
     echo "connecting to DB...<br>";
 
     if ($conn->connect_error) {
+        echo "Connection failed: " . $conn->connect_error;
         die("Connection failed: " . $conn->connect_error);
     }
-
+    echo "here";
     $stmt = $conn->prepare("INSERT INTO words (word, email) VALUES (?, ?)");
     $stmt->bind_param("ss", $word, $email);
     $stmt->execute();
